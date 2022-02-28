@@ -1,0 +1,18 @@
+#RABBITMQ enable management:
+rabbitmq-plugins enable rabbitmq_management
+
+#RABBITMQ defulat port:
+http://localhost:15672/
+
+#Run celery without evenlet:
+celery -A celerab_project worker -l info
+
+#Run celery with evenlet:
+celery -A celerab_project worker -l info -P eventlet
+
+#Run celery beat:
+celery -A celerab_project beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+#To delete celery task:
+from celerab_project.celery import app
+app.control.revoke(task_id)
